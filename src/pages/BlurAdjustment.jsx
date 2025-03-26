@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from '../../node_modules/axios/dist/axios';
+import axios from '../../node_modules/axios';
 import "../styles/BlurAdjustment.css"; // Import the CSS file for styling
 
 const BlurAdjustment = () => {
