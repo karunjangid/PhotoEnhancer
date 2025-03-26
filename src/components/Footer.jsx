@@ -1,0 +1,20 @@
+import React from "react";
+import "../styles/Futuristic.css";
+
+const Footer = () => {
+  return (
+    <footer className="footer">
+      <div className="footer-container">
+        <p>&copy; 2025 Photo Enhancer. All rights reserved.</p>
+        <ul className="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#feedback">Feedback</a></li>
+        </ul>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

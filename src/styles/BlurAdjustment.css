@@ -1,0 +1,126 @@
+/* General container styling for the Blur Adjustment component */
+.blur-adjustment-container {
+  font-family: "Poppins", sans-serif;
+  background: linear-gradient(135deg, #1f1f47, #2a2a72, #1f1f47);
+  color: #e4e4ff;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 900px;
+  height: 80vh;
+  margin: 2rem auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+/* Section heading */
+.blur-adjustment-container h2 {
+  font-size: 2.5rem;
+  color: #00ffc6;
+  margin-bottom: 1rem;
+}
+
+/* Container for image previews */
+.image-preview-container {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin: 2rem 0;
+}
+
+/* Individual image preview block */
+.image-preview {
+  text-align: center;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.image-preview:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(0, 255, 198, 0.6);
+}
+
+/* Preview image styling */
+.image-preview h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #7df7ff;
+  text-shadow: 0 0 6px #7df7ff;
+}
+
+.image {
+  max-width: 300px;
+  height: auto;
+  border: 3px solid #00ffc6;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Controls section */
+.controls {
+  margin-top: 2rem;
+}
+
+/* File input styling */
+.controls input[type="file"] {
+  padding: 0.6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #32325d, #4e4e8a);
+  color: #e4e4ff;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.controls input[type="file"]::file-selector-button {
+  background: linear-gradient(135deg, #2e2e65, #494990);
+  color: #00ffc6;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.controls input[type="file"]::file-selector-button:hover {
+  background: linear-gradient(135deg, #00ffc6, #009e89);
+  color: #ffffff;
+}
+
+/* Process button styling */
+.process-button {
+  margin-left: 1rem;
+  padding: 0.8rem 2rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background: linear-gradient(135deg, #00ffc6, #009e89);
+  color: #ffffff;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 255, 198, 0.4);
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
+}
+
+.process-button:hover {
+  background: linear-gradient(135deg, #009e89, #00ffc6);
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(0, 255, 198, 0.6);
+}
+
+@media screen and (max-width: 768px) {
+  .image-preview-container {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .image {
+    max-width: 100%;
+    height: auto;
+  }
+}
