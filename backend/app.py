@@ -16,7 +16,43 @@ UPLOAD_FOLDER = 'uploads'
 OUTPUT_FOLDER = 'outputs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+@app.route('/brightness', methods=['POST'])
+def adjust_brightness_contrast():
+    try:
+        file = request.files.get('image')
+        if not file:
+            print("No file uploaded")
+            return {"error": "No file uploaded"}, 400
 
+        brightness_level = float(request.form.get("brightness", 1.2))
+        contrast_level = float(request.form.get("contrast", 1.1))
+
+        # Save the file and log the path
+        input_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        output_path = os.path.join(OUTPUT_FOLDER, f"brightness_{file.filename}")
+        file.save(input_path)
+        print(f"Input file saved at: {input_path}")
+        
+        # Open and process the image
+        img = Image.open(input_path)
+        print("Image opened successfully")
+
+        enhancer = ImageEnhance.Brightness(img)
+        brightened_img = enhancer.enhance(brightness_level)
+        print(f"Brightness enhanced with level: {brightness_level}")
+
+        enhancer = ImageEnhance.Contrast(brightened_img)
+        final_img = enhancer.enhance(contrast_level)
+        print(f"Contrast enhanced with level: {contrast_level}")
+
+        # Save the processed image and confirm
+        final_img.save(output_path)
+        print(f"Processed file saved at: {output_path}")
+
+        return send_file(output_path, as_attachment=True)
+    except Exception as e:
+        print(f"Error during brightness/contrast adjustment: {e}")
+        return {"error": str(e)}, 500
 @app.route("/brightness", methods=["POST"])
 def brightness():
     try:
