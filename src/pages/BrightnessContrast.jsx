@@ -9,20 +9,18 @@ const BrightnessContrast = () => {
   const [brightness, setBrightness] = useState(1.2); // Default brightness
   const [contrast, setContrast] = useState(1.1); // Default contrast
 
-  // Handle file upload and preview
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
       const reader = new FileReader();
       reader.onload = (event) => {
-        setOriginalImage(event.target.result); // Set original image preview
+        setOriginalImage(event.target.result); // Preview the original image
       };
       reader.readAsDataURL(file);
     }
   };
-  
-  // Process Brightness and Contrast Adjustment
+
   const handleProcessAdjustment = async () => {
     if (!selectedFile) {
       alert("Please upload an image first!");
@@ -34,16 +32,18 @@ const BrightnessContrast = () => {
     formData.append("brightness", brightness);
     formData.append("contrast", contrast);
 
+    // Debug logging for keys
+    formData.forEach((value, key) => console.log(key, value));
+
     try {
       const response = await axios.post("http://localhost:5000/brightness", formData, {
-        responseType: "blob", // Expecting binary data
+        responseType: "blob", // Expect binary image data
       });
-      const imageUrl = URL.createObjectURL(response.data); // Create a URL for the processed image
+      const imageUrl = URL.createObjectURL(response.data);
       setProcessedImage(imageUrl);
     } catch (error) {
       console.error("Error applying brightness and contrast:", error);
-      alert("Something went wrong. Please try again.");
-    }
+        }
   };
 
   return (

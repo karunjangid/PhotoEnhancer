@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import axios from '../../node_modules/axios';
-import "../styles/BlurAdjustment.css"; // Import the CSS file for styling
+import axios from "axios";
+import "../styles/BlurAdjustment.css";
 
 const BlurAdjustment = () => {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -42,6 +42,18 @@ const BlurAdjustment = () => {
     }
   };
 
+  // Handle image download
+  const handleDownloadBlurredImage = () => {
+    if (blurredImage) {
+      const link = document.createElement("a");
+      link.href = blurredImage;
+      link.download = "blurred_image.jpg"; // Name of the downloaded file
+      link.click();
+    } else {
+      alert("No processed image available to download!");
+    }
+  };
+
   return (
     <div className="blur-adjustment-container">
       <h2>Blur Adjustment</h2>
@@ -62,6 +74,11 @@ const BlurAdjustment = () => {
       <div className="controls">
         <input type="file" onChange={handleFileUpload} accept="image/*" />
         <button onClick={handleProcessBlur} className="process-button">Process</button>
+      </div>
+      <div className="dbutton">
+      <button onClick={handleDownloadBlurredImage} className="download-button">
+              Download Blurred Image
+      </button>
       </div>
     </div>
   );
