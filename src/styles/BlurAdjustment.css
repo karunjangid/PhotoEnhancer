@@ -6,7 +6,7 @@
   padding: 2rem;
   border-radius: 10px;
   max-width: 900px;
-  height: 90vh;
+  height: 100vh;
   margin: 2rem auto;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   text-align: center;
@@ -14,15 +14,19 @@
 
 /* Section heading */
 .blur-adjustment-container h2 {
-  font-size: 2.5rem;
+  font-size: 2.4rem;
   color: #00ffc6;
   margin-bottom: 1rem;
 }
 
 /* Container for image previews */
 .image-preview-container {
+  height: 300px;
+  width: 800px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 2rem;
   flex-wrap: wrap;
   margin: 2rem 0;
@@ -30,6 +34,8 @@
 
 /* Individual image preview block */
 .image-preview {
+  height: 300px;
+  width: 230px;
   text-align: center;
   background: rgba(255, 255, 255, 0.05);
   padding: 1rem;
@@ -52,8 +58,8 @@
 }
 
 .image {
-  max-width: 300px;
-  height: auto;
+  width: 200px;
+  height: 200px;
   border: 3px solid #00ffc6;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
