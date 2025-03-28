@@ -31,12 +31,12 @@ const BlurAdjustment = () => {
     formData.append("image", selectedFile);
 
     try {
-      const response = await axios.post("http://localhost:5000/brightness", formData, {
+      const response = await axios.post("http://localhost:5000/blur", formData, {
         responseType: "blob", // Expecting binary image data
       });
       console.log("Axios Response:", response);
       const imageUrl = URL.createObjectURL(response.data);
-      setProcessedImage(imageUrl); // Display processed image
+      setBlurredImage(imageUrl); // Display processed image
     } catch (error) {
       console.error("Error Details:", error.response || error.message);
       alert("Something went wrong. Please try again.");

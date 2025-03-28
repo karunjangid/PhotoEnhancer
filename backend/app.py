@@ -16,6 +16,37 @@ UPLOAD_FOLDER = 'uploads'
 OUTPUT_FOLDER = 'outputs'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+
+@app.route('/blur', methods=['POST'])
+def blur_image():
+    file = request.files.get('image')
+    if not file:
+        print("No file uploaded")
+        return {"error": "No file uploaded"}, 400
+
+    try:
+        input_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        output_path = os.path.join(OUTPUT_FOLDER, f"blurred_{file.filename}")
+        file.save(input_path)
+
+        # Log the file path
+        print(f"File saved to: {input_path}")
+
+        # Open the image and apply blur
+        img = Image.open(input_path)
+        blurred_img = img.filter(ImageFilter.GaussianBlur(14))
+        blurred_img.save(output_path)
+
+        # Log the successful operation
+        print(f"Blurred image saved to: {output_path}")
+
+        return send_file(output_path, as_attachment=True)
+    except Exception as e:
+        print(f"Error: {e}")
+        return {"error": "Failed to process image"}, 500
+
+
+
 @app.route('/brightness', methods=['POST'])
 def adjust_brightness_contrast():
     try:
@@ -100,17 +131,29 @@ print(app.url_map)
 
 if __name__ == "__main__":          
     app.run(debug=True, port=5000)
-@app.route('/api/background', methods=['POST'])
+
+@app.route('/background', methods=['POST'])
 def background():
-    file = request.files['image']
-    input_path = os.path.join(UPLOAD_FOLDER, file.filename)
-    output_path = os.path.join(OUTPUT_FOLDER, f'background_{file.filename}')
-    file.save(input_path)
-    
-    success = remove_background(input_path, output_path)
-    if success:
-        return send_file(output_path, as_attachment=True)
-    return {"error": "Background removal failed."}
+    try:
+        file = request.files.get('image')
+        if not file:
+            return {"error": "No file uploaded"}, 400
+
+        # Generate unique filenames
+        input_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        output_path = os.path.join(OUTPUT_FOLDER, f"background_{file.filename}")
+        file.save(input_path)
+
+        # Call the background removal function
+        success = remove_background(input_path, output_path)
+        if success:
+            return send_file(output_path, as_attachment=True)
+        else:
+            return {"error": "Background removal failed."}, 500
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return {"error": str(e)}, 500
+
 
 @app.route('/api/filters', methods=['POST'])
 def filters():
